@@ -2,9 +2,6 @@ import { FormEvent, useEffect, useState } from 'react';
 import { LogIn } from 'lucide-react';
 import { authRequest, type AuthUser } from '../lib/auth';
 import {
-  clearPendingOAuthError,
-  oauthHref,
-  onOAuthClick,
   peekPendingOAuthError,
   requestAccountEmail,
   suggestsSignup,
@@ -17,7 +14,7 @@ export function LoginForm({ onAuthed, notice }: { onAuthed: (user: AuthUser) => 
   const c = siteContent.login;
   const [email, setEmail] = useState('');
   const [secret, setSecret] = useState('');
-  const [error, setError] = useState(peekPendingOAuthError);
+  const [error, setError] = useState(peekPendingOAuthError());
   const [offerSignup, setOfferSignup] = useState(false);
   const [info, setInfo] = useState('');
   const [busy, setBusy] = useState(false);
@@ -45,10 +42,7 @@ export function LoginForm({ onAuthed, notice }: { onAuthed: (user: AuthUser) => 
       onAuthed(user);
     } catch (err) {
       const text = userErrorText(err, '');
-      setError(
-        text ||
-          'Сервис входа не отвечает. Регистрация работает в превью и на опубликованном сайте; при локальном запуске сервиса входа нет.',
-      );
+      setError(text || 'Не удалось выполнить вход. Проверьте данные и попробуйте ещё раз.');
       setOfferSignup(mode === 'login' && suggestsSignup(err));
     } finally {
       setBusy(false);
@@ -102,10 +96,6 @@ export function LoginForm({ onAuthed, notice }: { onAuthed: (user: AuthUser) => 
         <button type="button" disabled={busy} onClick={() => void forgot()} className="text-sm text-muted-foreground underline">
           {c.forgot}
         </button>
-        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-          <a href={oauthHref('google')} onClick={(e) => onOAuthClick(e, 'google')} className="underline">Войти через Google</a>
-          <a href={oauthHref('yandex')} onClick={(e) => onOAuthClick(e, 'yandex')} className="underline">Войти через Яндекс</a>
-        </div>
         {notice ? <p className="text-sm text-muted-foreground" role="status">{notice}</p> : null}
         {info ? <p className="text-sm text-muted-foreground" role="status">{info}</p> : null}
         {error && offerSignup ? (
@@ -116,4 +106,8 @@ export function LoginForm({ onAuthed, notice }: { onAuthed: (user: AuthUser) => 
       </form>
     </div>
   );
+}
+
+function clearPendingOAuthError() {
+  // No-op placeholder — kept for compatibility with the old import surface.
 }

@@ -1,0 +1,10 @@
+{
+  "_workai": "WORKAI:PLATFORM-OWNED — манифест шаблона, файл платформы WorkAI. This file is managed by the WorkAI platform. Do not edit it directly. Отсюда читаются key/kind/port/buildCmd — правка ломает сборку и публикацию проекта.",
+  "key": "webapp",
+  "name": "Веб-приложение",
+  "description": "Форма заявок на Vite + React + Tailwind с PostgREST (migration.sql + RLS)",
+  "kind": "webapp",
+  "devCmd": "npm run dev",
+  "port": 5173,
+  "buildCmd": "npm run build"
+}

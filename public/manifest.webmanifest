@@ -1,0 +1,18 @@
+{
+  "name": "Делимобиль — оценка trade-in",
+  "short_name": "Trade-in",
+  "description": "Модель ценообразования trade-in для автопарка каршеринга",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#101935",
+  "theme_color": "#101935",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
